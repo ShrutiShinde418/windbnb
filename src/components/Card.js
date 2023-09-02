@@ -8,6 +8,7 @@ const Card = (props) => {
           src={props.photo}
           className="rounded-3xl lg:w-[410px] lg:h-[270px] md:w-[450px] md:h-[300px] object-cover"
           alt={props.title}
+          loading="lazy"
         />
       </div>
       <div className="flex mt-4 items-center gap-3 mb-3">
