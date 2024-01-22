@@ -28,6 +28,7 @@ const Main = () => {
               type={data.type}
               photo={data.photo}
               superHost={data.superHost}
+              key={data.title}
             />
           );
         })}

@@ -20,7 +20,7 @@ const Card = (props) => {
 
         <p className="font-medium text-gray4 text-sm">{props.type}</p>
         <div className="flex gap-1 ms-auto">
-          <span class="material-symbols-rounded text-darkOrange">star</span>
+          <span className="material-symbols-rounded text-darkOrange">star</span>
           <p className="mt-[0.15rem]">{props.rating}</p>
         </div>
       </div>

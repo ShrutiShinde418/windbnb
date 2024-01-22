@@ -4,9 +4,17 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 
 const Navbar = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState({
+    location: "Helsinki, Finland",
+    guests: "",
+  });
   const searchChangeHandler = (e) => {
-    setSearch(e.target.value);
+    console.log(e);
+    setSearch((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(search);
   };
   return (
     <nav className="mt-5 flex justify-between items-center font-mulish">
@@ -18,14 +26,15 @@ const Navbar = () => {
           type="text"
           name="location"
           id="location"
-          value="Helsinki, Finland"
+          value={search.location}
+          onChange={searchChangeHandler}
           className="px-5 py-3 border rounded-l-xl border-gray2 shadow-cu"
         />
         <Input
           type="text"
           name="guests"
           id="guests"
-          value={search}
+          value={search.guests}
           onChange={searchChangeHandler}
           placeholder="Add guests"
           className="px-5 py-3 border border-gray2 shadow-cu"
@@ -34,7 +43,9 @@ const Navbar = () => {
           type="submit"
           className="flex items-center border rounded-r-xl border-gray2 px-4 py-3"
         >
-          <span class="material-symbols-outlined text-darkOrange">search</span>
+          <span className="material-symbols-outlined text-darkOrange">
+            search
+          </span>
         </Button>
       </form>
     </nav>
