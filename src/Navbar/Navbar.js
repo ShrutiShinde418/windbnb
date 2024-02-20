@@ -3,7 +3,7 @@ import logo from "../assets/logo.svg";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
-const Navbar = () => {
+const Navbar = ({ displayModal }) => {
   const [search, setSearch] = useState({
     location: "Helsinki, Finland",
     guests: "",
@@ -15,6 +15,11 @@ const Navbar = () => {
       [e.target.name]: e.target.value,
     }));
     console.log(search);
+  };
+  const showModal = () => {
+    displayModal();
+    // console.log(showModalHandler);/
+    // console.log(displayModal);
   };
   return (
     <nav className="mt-5 flex justify-between items-center font-mulish">
@@ -28,6 +33,7 @@ const Navbar = () => {
           id="location"
           value={search.location}
           onChange={searchChangeHandler}
+          onFocus={showModal}
           className="px-5 py-3 border rounded-l-xl border-gray2 shadow-cu"
         />
         <Input
@@ -36,6 +42,7 @@ const Navbar = () => {
           id="guests"
           value={search.guests}
           onChange={searchChangeHandler}
+          onFocus={showModal}
           placeholder="Add guests"
           className="px-5 py-3 border border-gray2 shadow-cu"
         />

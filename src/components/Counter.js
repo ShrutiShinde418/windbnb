@@ -30,6 +30,7 @@ const Counter = () => {
       <Input
         type="number"
         defaultValue={counter}
+        value={counter}
         name="counter"
         min="0"
         className="text-center appearance-none m-0 w-14"

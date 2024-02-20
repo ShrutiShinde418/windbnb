@@ -14,9 +14,9 @@ const Drawer = () => {
   const [showLocations, setShowLocations] = useState(false);
   const [showGuests, setShowGuests] = useState(false);
   return (
-    <Fragment>
-      <form className="flex font-mulish my-10">
-        <div className="flex flex-col relative">
+    <div className="fixed z-20 top-0 w-full bg-white h-3/5 xl:mx-auto md:px-32">
+      <form className="flex justify-between font-mulish my-10">
+        <div className="flex flex-col relative w-full">
           <label
             htmlFor="location"
             className="font-extrabold text-[9px] text-black1 uppercase absolute left-8 top-3"
@@ -49,7 +49,7 @@ const Drawer = () => {
             </ul>
           )}
         </div>
-        <div className="flex flex-col relative">
+        <div className="flex flex-col relative w-full">
           <label
             htmlFor="guests"
             className="font-extrabold text-[9px] text-black1 uppercase absolute left-8 top-3"
@@ -90,7 +90,7 @@ const Drawer = () => {
           </Button>
         </div>
       </form>
-    </Fragment>
+    </div>
   );
 };
 
