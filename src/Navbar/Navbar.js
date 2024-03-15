@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import logo from "../assets/logo.svg";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import { useDispatch } from "react-redux";
+import modalSlice from "../store/modalSlice";
 
-const Navbar = ({ displayModal }) => {
+const Navbar = () => {
+  const dispatch = useDispatch();
+  const { openModal } = modalSlice.actions;
   const [search, setSearch] = useState({
     location: "Helsinki, Finland",
     guests: "",
@@ -16,24 +20,25 @@ const Navbar = ({ displayModal }) => {
     }));
     console.log(search);
   };
-  const showModal = () => {
-    displayModal();
-    // console.log(showModalHandler);/
-    // console.log(displayModal);
-  };
   return (
     <nav className="mt-5 flex justify-between items-center font-mulish">
       <div>
         <img src={logo} alt="windbnb" />
       </div>
-      <form className="flex relative items-center">
+      <form
+        className="flex relative items-center"
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch(openModal());
+        }}
+      >
         <Input
           type="text"
           name="location"
           id="location"
           value={search.location}
           onChange={searchChangeHandler}
-          onFocus={showModal}
+          onFocus={() => dispatch(openModal())}
           className="px-5 py-3 border rounded-l-xl border-gray2 shadow-cu"
         />
         <Input
@@ -42,7 +47,7 @@ const Navbar = ({ displayModal }) => {
           id="guests"
           value={search.guests}
           onChange={searchChangeHandler}
-          onFocus={showModal}
+          onFocus={() => dispatch(openModal())}
           placeholder="Add guests"
           className="px-5 py-3 border border-gray2 shadow-cu"
         />

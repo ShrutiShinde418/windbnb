@@ -1,24 +1,25 @@
 import React, { Fragment } from "react";
 import Drawer from "./Drawer";
 import { createPortal } from "react-dom";
+import modalSlice from "../store/modalSlice";
+import { useDispatch } from "react-redux";
 
-const Modal = ({ hideModal }) => {
+const Modal = () => {
   return (
     <Fragment>
-      {createPortal(
-        <Backdrop hideModal={hideModal} />,
-        document.getElementById("backdrop")
-      )}
+      {createPortal(<Backdrop />, document.getElementById("backdrop"))}
       {createPortal(<Drawer />, document.getElementById("modal"))}
     </Fragment>
   );
 };
 
-const Backdrop = ({ hideModal }) => {
+const Backdrop = () => {
+  const { closeModal } = modalSlice.actions;
+  const dispatch = useDispatch();
   return (
     <div
       className="fixed bg-[#00000080] min-h-screen w-full top-0 left-0 z-10"
-      onClick={hideModal}
+      onClick={() => dispatch(closeModal())}
     ></div>
   );
 };
