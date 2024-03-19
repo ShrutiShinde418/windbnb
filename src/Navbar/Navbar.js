@@ -8,18 +8,6 @@ import modalSlice from "../store/modalSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
   const { openModal } = modalSlice.actions;
-  const [search, setSearch] = useState({
-    location: "Helsinki, Finland",
-    guests: "",
-  });
-  const searchChangeHandler = (e) => {
-    console.log(e);
-    setSearch((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-    console.log(search);
-  };
   return (
     <nav className="mt-5 flex justify-between items-center font-mulish">
       <div>
@@ -36,8 +24,7 @@ const Navbar = () => {
           type="text"
           name="location"
           id="location"
-          value={search.location}
-          onChange={searchChangeHandler}
+          value="Helsinki, Finland"
           onFocus={() => dispatch(openModal())}
           className="px-5 py-3 border rounded-l-xl border-gray2 shadow-cu"
         />
@@ -45,8 +32,6 @@ const Navbar = () => {
           type="text"
           name="guests"
           id="guests"
-          value={search.guests}
-          onChange={searchChangeHandler}
           onFocus={() => dispatch(openModal())}
           placeholder="Add guests"
           className="px-5 py-3 border border-gray2 shadow-cu"

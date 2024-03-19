@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 import Input from "./Input";
 
-const Counter = () => {
+const Counter = ({ type }) => {
   const [counter, setCounter] = useState(0);
 
   const subtractHandler = () => {
