@@ -14,12 +14,17 @@ const staysSlice = createSlice({
   initialState: {
     staysList: [],
     location: "Helsinki, Finland",
-    guests: "",
+    guests: {},
     fetchStatus: "",
   },
   reducers: {
-    filter: (state) => {},
-    counter: (state, action) => {},
+    filterStays: (state, action) => {},
+    setGuestNumber: (state, action) => {
+      state.guests[action.payload.type] = action.payload.count;
+    },
+    setLocationUsingButton: (state, action) => {
+      state.location = action.payload.location;
+    },
   },
   extraReducers: (builder) => {
     builder

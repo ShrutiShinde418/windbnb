@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import Input from "./Input";
+import { useDispatch, useSelector } from "react-redux";
+import staysSlice from "../store/staysSlice";
 
 const Counter = ({ type }) => {
+  const dispatch = useDispatch();
+  const stays = useSelector((state) => state.stays);
+  console.log(stays.guests);
+  const { setGuestNumber } = staysSlice.actions;
   const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    dispatch(setGuestNumber({ type: type, count: counter }));
+  }, [counter]);
 
-  const subtractHandler = () => {
+  const subtractHandler = (type) => {
     setCounter((prevCounter) => {
       if (prevCounter <= 0) {
         return 0;
@@ -17,11 +26,11 @@ const Counter = ({ type }) => {
     setCounter((prevCounter) => prevCounter + 1);
   };
   return (
-    <div className="flex mt-3">
+    <div className="flex mt-3" key={type}>
       <Button
         type="button"
         className="border border-gray4 flex items-center rounded-[0.2rem] px-1"
-        onClick={subtractHandler}
+        onClick={() => subtractHandler(type)}
       >
         <span className="material-symbols-outlined counter text-gray4 text-base">
           remove
@@ -29,10 +38,10 @@ const Counter = ({ type }) => {
       </Button>
       <Input
         type="number"
-        defaultValue={counter}
         value={counter}
         name="counter"
         min="0"
+        readOnly
         className="text-center appearance-none m-0 w-14"
       />
       <Button

@@ -24,7 +24,7 @@ const Navbar = () => {
           type="text"
           name="location"
           id="location"
-          value="Helsinki, Finland"
+          defaultValue="Helsinki, Finland"
           onFocus={() => dispatch(openModal())}
           className="px-5 py-3 border rounded-l-xl border-gray2 shadow-cu"
         />

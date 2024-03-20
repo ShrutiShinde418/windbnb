@@ -1,8 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
 import Counter from "./Counter";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import staysSlice from "../store/staysSlice";
 
 const locations = [
   "Helsinki, Finland",
@@ -12,16 +13,28 @@ const locations = [
 ];
 
 const Drawer = () => {
+  const dispatch = useDispatch();
+  const { setLocationUsingButton, setGuestNumber } = staysSlice.actions;
   const stays = useSelector((state) => state.stays);
   const [showLocations, setShowLocations] = useState(false);
   const [location, setLocation] = useState(stays.location);
   // const [availableLocations, setAvailableLocations] = useState(locations);
   const [showGuests, setShowGuests] = useState(false);
+  const [guests, setGuests] = useState("");
+  useEffect(() => {
+    dispatch(setGuestNumber({ type: "adults", count: guests }));
+  }, [guests]);
+
   const locationChangeHandler = (e) => {
     setLocation(e.target.value);
+    dispatch(setLocationUsingButton({ location: e.target.value }));
   };
   const selectLocationHandler = (selectedLocation) => {
     setLocation(selectedLocation);
+    dispatch(setLocationUsingButton({ location: selectedLocation }));
+  };
+  const guestChangeHandler = (e) => {
+    setGuests(+e.target.value);
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -43,14 +56,13 @@ const Drawer = () => {
           <Input
             type="text"
             name="location"
-            defaultValue={location}
+            value={stays.location}
             id="location"
             placeholder="Add location"
             autoComplete="off"
             className="px-7 pb-2 pt-6 border rounded-l-2xl border-gray2 shadow-cu focus:rounded-2xl"
             onFocus={() => setShowLocations(true)}
             onChange={(e) => locationChangeHandler(e)}
-            // onBlur={() => setShowLocations(false)}
           />
           {showLocations && (
             <ul className="font-mulish text-gray3 text-base flex flex-col gap-7 mt-12">
@@ -59,9 +71,7 @@ const Drawer = () => {
                   <li key={availableLocation}>
                     <Button
                       className="flex items-center gap-2"
-                      onClick={(availableLocation) =>
-                        selectLocationHandler(availableLocation)
-                      }
+                      onClick={() => selectLocationHandler(availableLocation)}
                     >
                       <span className="material-symbols-rounded">
                         location_on
@@ -88,8 +98,9 @@ const Drawer = () => {
             placeholder="Add guests"
             className="px-7 pb-2 pt-6 border border-gray2 shadow-cu focus:rounded-2xl"
             onFocus={() => setShowGuests(true)}
+            onChange={guestChangeHandler}
+            value={guests}
             autoComplete="off"
-            // onBlur={() => setShowGuests(false)}
           />
           {showGuests && (
             <ul className="font-mulish text-gray3 text-base flex flex-col gap-10 mt-12">
