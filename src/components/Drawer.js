@@ -4,6 +4,7 @@ import Button from "./Button";
 import Counter from "./Counter";
 import { useSelector, useDispatch } from "react-redux";
 import staysSlice from "../store/staysSlice";
+import modalSlice from "../store/modalSlice";
 
 const locations = [
   "Helsinki, Finland",
@@ -14,34 +15,37 @@ const locations = [
 
 const Drawer = () => {
   const dispatch = useDispatch();
-  const { setLocationUsingButton, setGuestNumber } = staysSlice.actions;
+  const { setLocationUsingButton, filterStays } = staysSlice.actions;
+  const { closeModal } = modalSlice.actions;
   const stays = useSelector((state) => state.stays);
   const [showLocations, setShowLocations] = useState(false);
   const [location, setLocation] = useState(stays.location);
   // const [availableLocations, setAvailableLocations] = useState(locations);
   const [showGuests, setShowGuests] = useState(false);
-  const [guests, setGuests] = useState("");
-  useEffect(() => {
-    dispatch(setGuestNumber({ type: "adults", count: guests }));
-  }, [guests]);
+  let sum = 0;
+  sum = Object.values(stays.guests).reduce((acc, val) => {
+    return acc + val;
+  }, 0);
 
   const locationChangeHandler = (e) => {
     setLocation(e.target.value);
     dispatch(setLocationUsingButton({ location: e.target.value }));
   };
-  const selectLocationHandler = (selectedLocation) => {
+  const selectLocationHandler = (e, selectedLocation) => {
+    console.log(e.preventDefault());
     setLocation(selectedLocation);
     dispatch(setLocationUsingButton({ location: selectedLocation }));
   };
-  const guestChangeHandler = (e) => {
-    setGuests(+e.target.value);
-  };
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(filterStays({ guests: sum, location: stays.location }));
+    dispatch(closeModal());
+    console.log(sum);
+    console.log(stays.location);
     console.log("in submit event");
   };
   return (
-    <div className="fixed z-20 top-0 w-full bg-white h-3/5 xl:mx-auto md:px-32">
+    <div className="fixed z-50 top-0 w-full bg-white h-3/5 xl:mx-auto md:px-32">
       <form
         className="flex justify-between font-mulish my-10"
         onSubmit={submitHandler}
@@ -71,7 +75,9 @@ const Drawer = () => {
                   <li key={availableLocation}>
                     <Button
                       className="flex items-center gap-2"
-                      onClick={() => selectLocationHandler(availableLocation)}
+                      onClick={(e) =>
+                        selectLocationHandler(e, availableLocation)
+                      }
                     >
                       <span className="material-symbols-rounded">
                         location_on
@@ -98,8 +104,8 @@ const Drawer = () => {
             placeholder="Add guests"
             className="px-7 pb-2 pt-6 border border-gray2 shadow-cu focus:rounded-2xl"
             onFocus={() => setShowGuests(true)}
-            onChange={guestChangeHandler}
-            value={guests}
+            readOnly
+            value={sum}
             autoComplete="off"
           />
           {showGuests && (
