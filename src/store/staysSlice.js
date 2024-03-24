@@ -9,16 +9,32 @@ export const fetchAllStays = createAsyncThunk(
   }
 );
 
+const initialState = {
+  staysList: [],
+  filteredStaysList: () => this.staysList,
+  location: "Helsinki, Finland",
+  guests: {},
+  fetchStatus: "",
+};
+
 const staysSlice = createSlice({
   name: "stays",
   initialState: {
     staysList: [],
+    filteredStaysList: [],
     location: "Helsinki, Finland",
     guests: {},
     fetchStatus: "",
   },
   reducers: {
-    filterStays: (state, action) => {},
+    filterStays: (state, action) => {
+      console.log(action.payload);
+      state.filteredStaysList = state.staysList.filter(
+        (item) =>
+          item.maxGuests >= action.payload.guests &&
+          item.city === state.location.split(",")[0]
+      );
+    },
     setGuestNumber: (state, action) => {
       state.guests[action.payload.type] = action.payload.count;
     },
@@ -30,6 +46,7 @@ const staysSlice = createSlice({
     builder
       .addCase(fetchAllStays.fulfilled, (state, action) => {
         state.staysList = action.payload;
+        state.filteredStaysList = action.payload;
         state.fetchStatus = "success";
       })
       .addCase(fetchAllStays.pending, (state, action) => {
@@ -37,6 +54,7 @@ const staysSlice = createSlice({
       })
       .addCase(fetchAllStays.rejected, (state, action) => {
         state.staysList = data;
+        state.filteredStaysList = data;
         state.fetchStatus = "error";
       });
   },

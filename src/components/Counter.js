@@ -12,9 +12,9 @@ const Counter = ({ type }) => {
   const [counter, setCounter] = useState(0);
   useEffect(() => {
     dispatch(setGuestNumber({ type: type, count: counter }));
-  }, [counter]);
+  }, [counter, dispatch, type, setGuestNumber]);
 
-  const subtractHandler = (type) => {
+  const subtractHandler = () => {
     setCounter((prevCounter) => {
       if (prevCounter <= 0) {
         return 0;

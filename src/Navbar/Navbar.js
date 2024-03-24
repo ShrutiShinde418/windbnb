@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import logo from "../assets/logo.svg";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import modalSlice from "../store/modalSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const stays = useSelector((state) => state.stays);
   const { openModal } = modalSlice.actions;
   return (
     <nav className="mt-5 flex justify-between items-center font-mulish">
@@ -25,6 +26,7 @@ const Navbar = () => {
           name="location"
           id="location"
           defaultValue="Helsinki, Finland"
+          value={stays.location}
           onFocus={() => dispatch(openModal())}
           className="px-5 py-3 border rounded-l-xl border-gray2 shadow-cu"
         />
