@@ -13,20 +13,31 @@ const Main = () => {
   if (stays.fetchStatus === "loading") {
     content = <p className="text-lg font-mulish">Loading...</p>;
   } else {
-    content = stays.filteredStaysList.map((data) => {
-      return (
-        <Card
-          title={data.title}
-          rating={data.rating}
-          type={data.type}
-          photo={data.photo}
-          superHost={data.superHost}
-          key={data.title}
-        />
+    if (stays.filteredStaysList.length === 0) {
+      content = (
+        <div className="flex flex-col items-center col-span-2 font-montserrat gap-3 mt-5">
+          <h1 className="text-3xl font-bold text-black1">Oops!</h1>
+          <h2>
+            It looks like we couldn't find any search results that match your
+            filters.
+          </h2>
+        </div>
       );
-    });
+    } else {
+      content = stays.filteredStaysList.map((data) => {
+        return (
+          <Card
+            title={data.title}
+            rating={data.rating}
+            type={data.type}
+            photo={data.photo}
+            superHost={data.superHost}
+            key={data.title}
+          />
+        );
+      });
+    }
   }
-  console.log(stays.filteredStaysList.length);
   return (
     <main className="mt-10">
       <div className="flex items-center justify-between font-montserrat mb-7">

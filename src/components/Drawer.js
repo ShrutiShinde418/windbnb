@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
 import Counter from "./Counter";
@@ -20,7 +20,6 @@ const Drawer = () => {
   const stays = useSelector((state) => state.stays);
   const [showLocations, setShowLocations] = useState(false);
   const [location, setLocation] = useState(stays.location);
-  // const [availableLocations, setAvailableLocations] = useState(locations);
   const [showGuests, setShowGuests] = useState(false);
   let sum = 0;
   sum = Object.values(stays.guests).reduce((acc, val) => {
@@ -32,7 +31,6 @@ const Drawer = () => {
     dispatch(setLocationUsingButton({ location: e.target.value }));
   };
   const selectLocationHandler = (e, selectedLocation) => {
-    console.log(e.preventDefault());
     setLocation(selectedLocation);
     dispatch(setLocationUsingButton({ location: selectedLocation }));
   };
@@ -40,10 +38,11 @@ const Drawer = () => {
     e.preventDefault();
     dispatch(filterStays({ guests: sum, location: stays.location }));
     dispatch(closeModal());
-    console.log(sum);
-    console.log(stays.location);
-    console.log("in submit event");
   };
+  useEffect(() => {
+    dispatch(filterStays({ guests: sum, location: stays.location }));
+  }, [stays.location, stays.guests, dispatch, filterStays, sum]);
+
   return (
     <div className="fixed z-50 top-0 w-full bg-white h-3/5 xl:mx-auto md:px-32">
       <form

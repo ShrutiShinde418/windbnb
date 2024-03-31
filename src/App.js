@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 function App() {
   return (
-    <div className="xl:container xl:mx-auto md:px-8">
+    <div className="xl:container xl:mx-auto md:px-8 px-5">
       <ModalComponent />
       <Navbar />
       <Main />

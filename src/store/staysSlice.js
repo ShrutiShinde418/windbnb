@@ -9,14 +9,6 @@ export const fetchAllStays = createAsyncThunk(
   }
 );
 
-const initialState = {
-  staysList: [],
-  filteredStaysList: () => this.staysList,
-  location: "Helsinki, Finland",
-  guests: {},
-  fetchStatus: "",
-};
-
 const staysSlice = createSlice({
   name: "stays",
   initialState: {
@@ -28,7 +20,6 @@ const staysSlice = createSlice({
   },
   reducers: {
     filterStays: (state, action) => {
-      console.log(action.payload);
       state.filteredStaysList = state.staysList.filter(
         (item) =>
           item.maxGuests >= action.payload.guests &&

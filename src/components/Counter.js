@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import Input from "./Input";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import staysSlice from "../store/staysSlice";
 
 const Counter = ({ type }) => {
   const dispatch = useDispatch();
-  const stays = useSelector((state) => state.stays);
-  console.log(stays.guests);
   const { setGuestNumber } = staysSlice.actions;
   const [counter, setCounter] = useState(0);
   useEffect(() => {
