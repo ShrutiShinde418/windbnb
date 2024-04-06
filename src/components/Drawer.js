@@ -32,6 +32,7 @@ const Drawer = () => {
   };
   const selectLocationHandler = (e, selectedLocation) => {
     setLocation(selectedLocation);
+    e.preventDefault();
     dispatch(setLocationUsingButton({ location: selectedLocation }));
   };
   const submitHandler = (e) => {
@@ -44,9 +45,9 @@ const Drawer = () => {
   }, [stays.location, stays.guests, dispatch, filterStays, sum]);
 
   return (
-    <div className="fixed z-50 top-0 w-full bg-white h-3/5 xl:mx-auto md:px-32">
+    <div className="fixed z-50 top-0 w-full bg-white lg:h-3/5 xl:mx-auto md:px-10 lg:px-16 px-4">
       <form
-        className="flex justify-between font-mulish my-10"
+        className="flex lg:flex-row flex-col lg:gap-0 justify-between font-mulish lg:my-10 my-5"
         onSubmit={submitHandler}
       >
         <div className="flex flex-col relative w-full">
@@ -63,12 +64,12 @@ const Drawer = () => {
             id="location"
             placeholder="Add location"
             autoComplete="off"
-            className="px-7 pb-2 pt-6 border rounded-l-2xl border-gray2 shadow-cu focus:rounded-2xl"
+            className="px-7 pb-2 pt-6 border lg:rounded-l-2xl lg:rounded-tr-none rounded-t-2xl border-gray2 shadow-cu focus:rounded-2xl"
             onFocus={() => setShowLocations(true)}
             onChange={(e) => locationChangeHandler(e)}
           />
           {showLocations && (
-            <ul className="font-mulish text-gray3 text-base flex flex-col gap-7 mt-12">
+            <ul className="font-mulish text-gray3 text-base flex flex-col lg:gap-7 gap-5 lg:mt-12 mt-6 lg:mb-0 mb-7">
               {locations.map((availableLocation) => {
                 return (
                   <li key={availableLocation}>
@@ -101,14 +102,14 @@ const Drawer = () => {
             name="guests"
             id="guests"
             placeholder="Add guests"
-            className="px-7 pb-2 pt-6 border border-gray2 shadow-cu focus:rounded-2xl"
+            className="px-7 pb-2 pt-6 border lg:rounded-none rounded-b-2xl border-gray2 shadow-cu focus:rounded-2xl"
             onFocus={() => setShowGuests(true)}
             readOnly
             value={sum}
             autoComplete="off"
           />
           {showGuests && (
-            <ul className="font-mulish text-gray3 text-base flex flex-col gap-10 mt-12">
+            <ul className="font-mulish text-gray3 text-base flex flex-col lg:gap-10 gap-5 lg:mt-12 mt-6">
               <li>
                 <p className="text-sm text-black1 font-bold">Adults</p>
                 <p className="text-sm text-gray1">Ages 13 or above </p>
@@ -122,10 +123,10 @@ const Drawer = () => {
             </ul>
           )}
         </div>
-        <div className="flex items-center border rounded-r-2xl border-gray2 py-1 self-start">
+        <div className="flex items-center lg:border lg:rounded-r-2xl border-gray2 py-1 lg:self-start self-center lg:mt-0 mt-5">
           <Button
             type="submit"
-            className="flex items-center gap-3 px-7 py-3 mx-32 rounded-2xl bg-darkOrange"
+            className="flex items-center gap-3 px-7 py-3 lg:mx-32 rounded-2xl bg-darkOrange"
           >
             <span className="material-symbols-outlined text-gray2">search</span>
             <p className="text-gray2 font-bold">Search</p>

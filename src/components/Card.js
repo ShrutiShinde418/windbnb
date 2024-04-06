@@ -11,7 +11,7 @@ const Card = (props) => {
           loading="lazy"
         />
       </div>
-      <div className="flex mt-4 items-center gap-3 mb-3">
+      <div className="flex mt-4 items-center gap-3 sm:mb-1 mb-2">
         {props.superHost && (
           <p className="uppercase border text-xs border-gray3 rounded-2xl px-3 py-[0.45rem] text-gray3 font-bold">
             Super Host

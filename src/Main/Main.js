@@ -15,7 +15,7 @@ const Main = () => {
   } else {
     if (stays.filteredStaysList.length === 0) {
       content = (
-        <div className="flex flex-col items-center col-span-2 font-montserrat gap-3 mt-5">
+        <div className="flex flex-col items-center col-span-3 font-montserrat gap-3 mt-5">
           <h1 className="text-3xl font-bold text-black1">Oops!</h1>
           <h2>
             It looks like we couldn't find any search results that match your
@@ -44,7 +44,7 @@ const Main = () => {
         <h1 className="font-bold text-black1 text-2xl">Stays in Finland</h1>
         <h2 className="text-base">{stays.filteredStaysList.length} stays</h2>
       </div>
-      <section className="grid lg:grid-cols-3 md:grid-cols-2 xl:gap-9 lg:gap-6 md:gap-7">
+      <section className="grid lg:grid-cols-3 md:grid-cols-2 xl:gap-9 lg:gap-6 md:gap-7 gap-10">
         {content}
       </section>
     </main>

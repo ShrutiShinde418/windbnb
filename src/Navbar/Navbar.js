@@ -14,12 +14,12 @@ const Navbar = () => {
     return acc + val;
   }, 0);
   return (
-    <nav className="mt-5 flex sm:flex-row sm:gap-0 gap-5 flex-col justify-between items-center font-mulish">
+    <nav className="mt-5 flex sm:flex-row sm:gap-0 gap-5 flex-col justify-between sm:items-center font-mulish">
       <div className="self-start sm:self-center">
         <img src={logo} alt="windbnb" />
       </div>
       <form
-        className="flex relative items-center"
+        className="flex sm:items-center"
         onSubmit={(e) => {
           e.preventDefault();
           dispatch(openModal());
@@ -32,7 +32,7 @@ const Navbar = () => {
           readOnly
           value={stays.location}
           onFocus={() => dispatch(openModal())}
-          className="sm:px-5 sm:py-3 px-3 py-2 border rounded-l-xl border-gray2 shadow-cu"
+          className="sm:px-5 sm:py-3 px-3 py-2 border rounded-l-xl border-gray2 shadow-cu w-5/12 sm:w-auto"
         />
         <Input
           type="text"
@@ -41,7 +41,7 @@ const Navbar = () => {
           onFocus={() => dispatch(openModal())}
           value={sum}
           placeholder="Add guests"
-          className="sm:px-5 sm:py-3 px-4 py-2 border border-gray2 shadow-cu"
+          className="sm:px-5 sm:py-3 px-4 py-2 border border-gray2 shadow-cu w-5/12 sm:w-auto"
           readOnly
         />
         <Button
